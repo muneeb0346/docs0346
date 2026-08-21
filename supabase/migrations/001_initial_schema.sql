@@ -47,9 +47,9 @@ create policy "Users can delete own documents"
   using (owner_id = auth.uid());
 
 -- Document shares policies
-create policy "Owners can view shares"
+create policy "Users can view own shares"
   on public.document_shares for select
-  using (document_id in (select id from public.documents where owner_id = auth.uid()));
+  using (shared_with_user_id = auth.uid());
 
 create policy "Owners can insert shares"
   on public.document_shares for insert
